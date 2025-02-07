@@ -1,23 +1,97 @@
+
 {
-  "stringer": {
-    "stringer1": {
-      "jobcard": "1880131",
-      "operator": "John Doe"
+  "Stringer": {
+    "Stringer1": {
+      "MachineId": "Machine local ip",
+      "JobcardNumber": 123456,
+      "CurrentLayerName": "sample layer name",
+      "CompletionPercentage": 0.00,
+      "PresetId": "SP1",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed": 200,
+      "AverageSpeed": 0.00,
+      "LastMoveTimeEpoch" : 1738897930,
+      "TotalRuntimeSeconds": 0,
+      "IsCompleted":false,
     },
-    "stringer2": {
-      "jobcard": "1880132",
-      "operator": "Jane Smith"
+    "Stringer2": {
+      "MachineId": "Machine local ip",
+      "JobcardNumber": 123456,
+      "CurrentLayerName": "sample layer name",
+      "CompletionPercentage": 0.00,
+      "PresetId": "SP1",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed": 200,
+      "AverageSpeed": 0.00,
+      "LastMoveTimeEpoch" : 1738897930,
+      "TotalRuntimeSeconds": 0,
+      "IsCompleted":false,
+    },
+    "Stringer3": {
+      "MachineId": "Machine local ip",
+      "JobcardNumber": 123456,
+      "CurrentLayerName": "sample layer name",
+      "CompletionPercentage": 0.00,
+      "PresetId": "SP1",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed": 200,
+      "AverageSpeed": 0.00,
+      "LastMoveTimeEpoch" : 1738897930,
+      "TotalRuntimeSeconds": 0,
+      "IsCompleted":false,
+    },
+    "Stringer4": {
+      "MachineId": "Machine local ip",
+      "JobcardNumber": 123456,
+      "CurrentLayerName": "sample layer name",
+      "CompletionPercentage": 0.00,
+      "PresetId": "SP1",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed": 200,
+      "AverageSpeed": 0.00,
+      "LastMoveTimeEpoch" : 1738897930,
+      "TotalRuntimeSeconds": 0,
+      "IsCompleted":false,
     }
   },
-  "laminator": {
-    "laminator1": {
-      "jobcard": "131956",
-      "operator": "Alice Brown"
+  "Laminator": {
+    "Laminator1": {
+      "MachineId": "Machine local ip",
+      "JobcardNumber": 123456,
+      "PresetId": "SP3",
+      "HeaterPower":60,
+      "HeaterMinimumPower":53,
+      "HeaterMaximumPower":63,
+      "LaminationSpeed": 1.3,
+      "VacuumReading": 0.0,
+      "TotalRuntimeSeconds": 0,
+      "LastMoveTimeEpoch" : 1738897930,
+      "AverageSurfaceTemperature1": 0.0,
+      "AverageSurfaceTemperature2": 0.0,
+      "AverageSurfaceTemperature3": 0.0,
+      "MaxTemperatureSensor1": 0.0,
+      "MaxTemperatureSensor2": 0.0,
+      "MaxTemperatureSensor3": 0.0,
+      "MaxTemperatureSensor4": 0.0,
+      "MaxTemperatureSensor5": 0.0,
+      "MaxTemperatureSensor6": 0.0,
+      "MaxTemperatureSensor7": 0.0,
+      "MaxTemperatureSensor8": 0.0,
+      
+      
     },
-    "laminator2": {
-      "jobcard": "131957",
-      "operator": "Bob Johnson"
+    "Laminator2": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP4",
+      "HeaterPower":60,
+      "HeaterMinimumPower":53,
+      "HeaterMaximumPower":63,
+      "LaminationSpeed": 1.3
     }
   }
 }
-
