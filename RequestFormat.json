@@ -1,23 +1,58 @@
 
 {
-  "stringer": {
-    "stringer1": {
-      "jobcard": "1880131",
-      "operator": "John Doe"
+  "Stringer": {
+    "Stringer1": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP1",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed" 200
     },
-    "stringer2": {
-      "jobcard": "1880132",
-      "operator": "Jane Smith"
+    "Stringer2": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP2",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed" 200
+    },
+    "Stringer3": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP3",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed" 200
+    },
+    "Stringer4": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP4",
+      "HeaterTemperature": 130,
+      "MaximumSpeed": 700,
+      "MinimumSpeed" 200
     }
   },
-  "laminator": {
-    "laminator1": {
-      "jobcard": "131956",
-      "operator": "Alice Brown"
+  "Laminator": {
+    "Laminator1": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP3",
+      "HeaterPower":60,
+      "HeaterMinimumPower":53,
+      "HeaterMaximumPower":63,
+      "LaminationSpeed": 1.3
+      
     },
-    "laminator2": {
-      "jobcard": "131957",
-      "operator": "Bob Johnson"
+    "Laminator2": {
+      "MachineId": "Machine local ip"
+      "JobcardNumber": 123456,
+      "PresetId": "SP4",
+      "HeaterPower":60,
+      "HeaterMinimumPower":53,
+      "HeaterMaximumPower":63,
+      "LaminationSpeed": 1.3
     }
   }
 }
