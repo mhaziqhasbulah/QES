@@ -5,3 +5,4 @@ Repo to put all the necessary and relevant codes to link the current Malaysia lo
 
 Dev Note:
 - the SQL schema table is still in development and need to be reviewed
+- The request and response API need to be reviewed
