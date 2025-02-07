@@ -62,7 +62,7 @@
     "Laminator1": {
       "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
-      "PresetId": "SP3",
+      "PresetId": "TP52001",
       "HeaterPower":60,
       "HeaterMinimumPower":53,
       "HeaterMaximumPower":63,
@@ -81,13 +81,14 @@
       "MaxTemperatureSensor6": 0.0,
       "MaxTemperatureSensor7": 0.0,
       "MaxTemperatureSensor8": 0.0,
+      "IsCompleted":false
       
       
     },
     "Laminator2": {
       "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
-      "PresetId": "SP3",
+      "PresetId": "TP52001",
       "HeaterPower":60,
       "HeaterMinimumPower":53,
       "HeaterMaximumPower":63,
@@ -106,6 +107,7 @@
       "MaxTemperatureSensor6": 0.0,
       "MaxTemperatureSensor7": 0.0,
       "MaxTemperatureSensor8": 0.0,
+      "IsCompleted":false
     }
   }
 }
