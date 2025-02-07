@@ -2,7 +2,7 @@
 {
   "Stringer": {
     "Stringer1": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP1",
       "HeaterTemperature": 130,
@@ -10,7 +10,7 @@
       "MinimumSpeed" 200
     },
     "Stringer2": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP2",
       "HeaterTemperature": 130,
@@ -18,7 +18,7 @@
       "MinimumSpeed" 200
     },
     "Stringer3": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP3",
       "HeaterTemperature": 130,
@@ -26,7 +26,7 @@
       "MinimumSpeed" 200
     },
     "Stringer4": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP4",
       "HeaterTemperature": 130,
@@ -36,7 +36,7 @@
   },
   "Laminator": {
     "Laminator1": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP3",
       "HeaterPower":60,
@@ -46,7 +46,7 @@
       
     },
     "Laminator2": {
-      "MachineId": "Machine local ip"
+      "MachineId": "Machine local ip",
       "JobcardNumber": 123456,
       "PresetId": "SP4",
       "HeaterPower":60,
