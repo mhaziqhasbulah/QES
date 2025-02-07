@@ -1,1 +1,23 @@
 
+{
+  "stringer": {
+    "stringer1": {
+      "jobcard": "1880131",
+      "operator": "John Doe"
+    },
+    "stringer2": {
+      "jobcard": "1880132",
+      "operator": "Jane Smith"
+    }
+  },
+  "laminator": {
+    "laminator1": {
+      "jobcard": "131956",
+      "operator": "Alice Brown"
+    },
+    "laminator2": {
+      "jobcard": "131957",
+      "operator": "Bob Johnson"
+    }
+  }
+}
