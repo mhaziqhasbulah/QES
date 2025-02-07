@@ -1,12 +1,12 @@
 CREATE TABLE Jobcards (
     JobcardNumber BIGINT PRIMARY KEY,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    CreatedAt DATETIME DEFAULT GETDATE()
 );
 
 CREATE TABLE Stringers (
-    ID SERIAL PRIMARY KEY,
+    ID INT IDENTITY(1,1) PRIMARY KEY,
     MachineId VARCHAR(255) NOT NULL,
-    JobcardNumber BIGINT REFERENCES Jobcards(JobcardNumber) ON DELETE CASCADE,
+    JobcardNumber BIGINT FOREIGN KEY REFERENCES Jobcards(JobcardNumber) ON DELETE CASCADE,
     CurrentLayerName VARCHAR(255),
     CompletionPercentage DECIMAL(5,2) DEFAULT 0.00,
     PresetId VARCHAR(50),
@@ -16,13 +16,13 @@ CREATE TABLE Stringers (
     AverageSpeed DECIMAL(10,2) DEFAULT 0.00,
     LastMoveTimeEpoch BIGINT,
     TotalRuntimeSeconds INT DEFAULT 0,
-    IsCompleted BOOLEAN DEFAULT FALSE
+    IsCompleted BIT DEFAULT 0
 );
 
 CREATE TABLE Laminators (
-    ID SERIAL PRIMARY KEY,
+    ID INT IDENTITY(1,1) PRIMARY KEY,
     MachineId VARCHAR(255) NOT NULL,
-    JobcardNumber BIGINT REFERENCES Jobcards(JobcardNumber) ON DELETE CASCADE,
+    JobcardNumber BIGINT FOREIGN KEY REFERENCES Jobcards(JobcardNumber) ON DELETE CASCADE,
     PresetId VARCHAR(50),
     HeaterPower INT,
     HeaterMinimumPower INT,
@@ -42,5 +42,5 @@ CREATE TABLE Laminators (
     MaxTemperatureSensor6 DECIMAL(5,2),
     MaxTemperatureSensor7 DECIMAL(5,2),
     MaxTemperatureSensor8 DECIMAL(5,2),
-    IsCompleted BOOLEAN DEFAULT FALSE
+    IsCompleted BIT DEFAULT 0
 );
