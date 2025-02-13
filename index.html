@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/jqueryui.css">
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/socket.js"></script>
+    <script src="../static/js/chart.js"></script>
+    <script src="../static/js/canvaschart.js"></script>
+
+    <script src="../static/js/jquery2.js"></script>
+    <script src="../static/js/jqueryui.js"></script>
+    <script src="../static/js/touch.js"></script>
+       
+    <title>Q-Laminator</title>
+    <link rel="stylesheet" type="text/css" href='../static/style.css'>
+    
+    <script src="/static/js/ajaxchart.js"></script>
+    <link
+      href="/static/css/framework.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="{{url_for('static', filename = 'css/app.css')}}" rel="stylesheet">
+
+    <!-- Head section here -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+	
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 3px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px;
+        }
+
+        .sensor-box {
+            background-color: #fff;
+            border: 1px solid #d1d3e2;
+            border-radius:15px;
+            padding: 15px;
+            margin-bottom: 2px;
+	    gap: 5px; /* Adjust the gap as needed */
+        }
+
+        .sensors-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust the gap as needed */
+            justify-content: center;
+        }
+
+        .sensor-card {
+            background-color: #ffffff;
+            border: 1px solid #d1d3e2;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sensor-title {
+            background-color: #007bff;;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        .sensor-title1 {
+            background-color: orange;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        .sensor-title2 {
+            background-color: red;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        .sensor-title3 {
+            background-color: blue;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        .sensor-title4 {
+            background-color: yellow;
+            color: black;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin: -20px -20px 20px -20px;
+        }
+
+        #chartContainer {
+            height: 500px;
+            width: 100%;
+        }
+
+        h4 {
+            font-size: 18px;
+        }
+
+        .bg-primary {
+            background-color: #071eeec7 !important;
+        }
+
+        img {
+            cursor: pointer;
+        }
+	
+	.flex-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	#sliderRangeDisplay {
+		display: inline-block;
+		background-color: #f0f0f0;
+		padding: 10px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		margin-bottom: 20px;
+	}
+	
+	#sliderRangeDisplay span {
+		display: inline;
+		font-weight: bold;
+		margin: 0 5px;
+	}
+	
+	#sailType {
+		max-width: 150px; /* Adjust the width as needed */
+		margin: 0 auto;
+		display: block;
+	}
+	
+	.slider-container {
+    		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.custom-slider {
+    		width: 80%;
+    		margin: 30px auto;
+	}
+
+	.slider-label {
+    		font-size: 25px;
+    		font-weight: bold;
+    		margin-bottom: 10px;
+		margin-top: 5px;
+		text-align: center; /* Added this line for centering */
+	}
+
+	.slider-result {
+    		font-size: 10px;
+    		font-weight: bold;
+    		margin-top: 10px;
+		margin-bottom: 15px;
+		text-align: center; /* Added this line for centering */
+	}
+
+	.slider-result span {
+    		color: #007bff; /* Match your header color */
+	}	
+
+	.toggle-button {
+    		background-color: #007bff;
+    		color: #fff;
+    		border: none;
+    		padding: 10px 20px;
+    		font-size: 16px;
+    		cursor: pointer;
+    		border-radius: 5px;
+    		transition: background-color 0.3s;
+	}
+
+	.toggle-button:hover {
+    		background-color: #0056b3;
+	}
+
+	#sensorSection {
+    		display: none;
+	}
+
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	.barcode-scanner-container {
+		display: flex;
+		align-items: center;
+		justify-content: center; /* Adjust as needed for horizontal alignment */
+	}
+	
+	.barcode-scanner {
+		margin-top: 10px;
+		padding: 0px;
+		background-color: #f8f9fa;
+		border-radius: 0px;
+		box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+	}
+	
+	.barcode-title {
+		font-size: 18px;
+		color: #007bff;
+		margin-bottom: 10px;
+	}
+	
+	.barcode-input-container {
+		display: flex;
+		align-items: center;
+		max-width: 400px; /* Set a maximum width */
+		margin: 0 auto; /* Center the container */
+		justify-content: flex-start; /* Align content to the left */
+	}
+	
+	.barcode-input {
+		flex: 1;
+		margin-top: 15px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px 0 0 5px;
+	}
+
+	.barcode-list {
+		list-style: none;
+		padding: 0;
+		margin-top: 10px;
+	}
+	
+	.barcode-buttons {
+		text-align: center;
+		margin: 1px; 
+		justify-content: flex-start; 
+	}
+	
+	#startRecordingButton,
+	#stopRecordingButton {
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		padding: 10px 20px;
+		font-size: 16px;
+		cursor: pointer;
+		border-radius: 5px;
+		transition: background-color 0.3s;
+		margin-right: 5px;
+	}
+
+	#restoreStateButton,
+	#clearStateButton {
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		padding: 10px 20px;
+		font-size: 16px;
+		cursor: pointer;
+		border-radius: 5px;
+		transition: background-color 0.3s;
+		margin-right: 5px;
+	}
+
+	#startRecordingButton:hover,
+	#stopRecordingButton:hover {
+		background-color: #0056b3;
+	}
+
+	#restoreStateButton:hover,
+	#clearStateButton:hover {
+		background-color: #0056b3;
+	}
+
+	#stopRecordingButton:disabled {
+		background-color: #ccc;
+		cursor: not-allowed;
+	}
+
+	#startRecordingButton:disabled{
+		background-color: #ccc;
+		cursor: not-allowed;
+	}
+
+	#restoreStateButton:disabled {
+		background-color: #ccc;
+		cursor: not-allowed;
+	}
+
+	#clearStateButton:disabled{
+		background-color: #ccc;
+		cursor: not-allowed;
+	}
+	
+	.speed-options {
+		margin-top: 10px;
+	}
+
+	.speed-button {
+		background-color: #4CAF50; /* Green */
+		border: none;
+		color: white;
+		padding: 10px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px 2px;
+		cursor: pointer;
+		border-radius: 5px;
+		touch-action: manipulation; /* Enable touch events on the button */
+	}
+
+	.speed-button:hover {
+		background-color: #45a049; /* Darker green on hover */
+	}
+
+	.slider-result {
+		margin-top: 30px;
+		font-size: 18px;
+	}
+	
+	.option-button {
+		background-color: #4CAF50; /* Green */
+		border: none;
+		color: white;
+		padding: 20px 20px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 20px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+		touch-action: manipulation; /* Enable touch events on the button */
+	}
+
+	.option-button:hover {
+		background-color: #45a049; /* Darker green on hover */
+	}
+	
+	.option-result {
+		margin-top: 20px;
+		font-size: 16px;
+	}
+	
+	form {
+		margin-top: 20px;
+	}
+	
+	label {
+		display: block;
+		margin-bottom: 5px
+	}
+	
+	input[type="text"] {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+        }
+	
+	button[type="submit"] {
+		background-color: #2196f3;
+		color: #fff;
+        }
+	
+	#userInput {
+		padding: 10px;
+		margin-right: 10px;
+		border: 1px solid #ccc;
+	}
+	
+	#loadButton {
+		padding: 10px;
+		background-color: #4caf50;
+		color: white;
+		border: none;
+		cursor: pointer;
+		border-radius: 5px;
+		margin-right: 30px;
+        }
+	
+	#result {
+		margin-top: 20px;
+		padding: 10px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+        }
+	
+	.my-custom-class {
+		text-align: center;
+	}
+	
+	.option-button.fixed-value {
+		background-color: red;
+		color: white;
+		transition: background-color 0.3s; /* Add a smooth transition effect */
+	}
+	
+	.option-button.fixed-value:hover {
+		background-color: #cc0000; /* Change the color when hovering */
+	}
+	
+	.speed-button.fixed-value {
+		background-color: red;
+		color: white;
+	}
+	
+	.speed-button.fixed-value:hover {
+		background-color: red;
+		background-color: #cc0000; /* Change the color when hovering */
+	}
+	
+	.speed-button.fixed-value2 {
+		background-color: blue;
+		color: white;
+	}
+	
+	#overrideButton {
+		background-color: #4CAF50;
+		color: white;
+		padding: 10px 20px;
+		font-size: 16px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		/*margin-right: 10px;*/
+	}
+
+	#overrideButton:hover {
+		background-color: #45a049;
+	}
+	 
+	#sliderdummyContainer {
+		display: none;
+	}
+	
+	.run-button {
+		background-color: #007bff;
+		color: white; /* White text color */
+		padding: 10px 15px; /* Padding for better appearance */
+		margin-right: 10px; /* Add some margin to separate it from other buttons */
+		cursor: pointer; /* Show a hand cursor on hover to indicate it's clickable */
+		border: none; /* Remove default button border */
+		border-radius: 5px; /* Add a slight border-radius for a rounded appearance */
+	}
+	
+	.run-button:hover {
+		background-color: #0056b3; 
+	}
+	
+	#uploadButton {
+		background-color: #4CAF50; /* Green */
+		border: none;
+		color: white;
+		padding: 10px 20px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	
+	#uploadButton:hover {
+		background-color: #45a049; /* Darker Green */
+	}
+	
+	#loadButton {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px 20px;
+		margin: 5px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+		border-radius: 5px;
+		transition: background-color 0.3s ease-in-out;
+	}
+
+	#loadButton:hover {
+		background-color: #0056b3;
+	}
+	
+	#machineButton {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px 20px;
+		margin: 5px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	
+	buttonpreset {
+		padding: 20px 40px;
+		margin: 5px;
+		font-size: 18px;
+		cursor: pointer;
+		background-color: #4CAF50; /* Green */
+		color: #fff;
+		border: none;
+		border-radius: 10px;
+		transition: background-color 0.3s ease; /* Add smooth transition */
+	}
+	
+	buttonpreset:hover {
+		background-color: #45a049; /* Darker green on hover */
+	}
+	
+	/* Style the "STOP" button differently */
+	.stop-button {
+		background-color: #e74c3c;
+		padding: 20px 40px;
+		margin: 10px;
+		font-size: 18px;
+		cursor: pointer;
+		color: #fff;
+		border: none;
+		border-radius: 10px;
+		transition: background-color 0.3s ease; /* Add smooth transition */
+	}
+	
+	.stop-button:hover {
+		background-color: #c0392b; /* Darker red on hover */
+	}
+
+	/* Add some padding and margin to the container */
+	#container {
+		padding: 20px;
+		margin: 5px;
+	}
+	
+	/* Apply styles to the option buttons */
+	.option-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8d7da; /* Red background color */
+    color: #721c24; /* Dark red text color */
+    border: 1px solid #f5c6cb; /* Red border color */
+    display: none; /* Initially hidden */
+}
+
+.notification.visible {
+    display: block; /* Display when visible */
+}
+
+.notification button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    float: right;
+}
+    </style>
+    
+</head>
+
+<body>
+    <div class="header">
+        <h4>Laminator Control Panel</h4>
+    </div>
+    
+	<div class="barcode-scanner-container">
+		<!-- Add these buttons below the barcode-list div -->
+		<div class="barcode-buttons">
+			<button id="startRecordingButton" onclick="startRecording()">Start Recording</button>
+			<button id="stopRecordingButton" onclick="stopRecording()">Stop Recording</button>
+		</div>
+		<!--<div class="barcode-buttons">-->
+			<!--<button id="restoreStateButton">Restore Previous State</button>-->
+			<!--<button id="clearStateButton">Clear Saved State</button>-->
+		<!--</div>-->
+		<!-- Input field for searching by name -->
+		<label for="userInput">Enter material:</label>
+		<input type="text" id="userInput">
+		<button id="machineButton" >Blue Laminator</button>
+		<button id="loadButton" onclick="fetchData()">Load Preset</button>
+		
+		<button id="overrideButton">Override</button>
+		
+		<!-- Add this button to your HTML file -->
+		<button id="uploadButton" onclick="uploadData()">Upload Data</button>
+		
+		<div id="notification" class="notification hidden">
+			<span id="notificationMessage"></span>
+			<button id="closeNotification">Close</button>
+		</div>
+		
+		<script>
+            // Create a WebSocket connection to the server
+            const ws = new WebSocket('ws://192.168.42.48:5500'); 
+            
+            // Add a variable for the target value
+			var targetValue = 0; // Set your desired target value here
+			// Chart data arrays
+			var dataPointsTarget = [];
+			var dataPoints1 = []; 
+			var dataPoints2 = []; 
+			var dataPoints3 = []; 
+			var dataPoints4 = [];
+			var dataPoints5 = []; 
+			var dataPoints6 = []; 
+			var dataPoints7 = []; 
+			var dataPoints8 = [];
+			
+			const MAX_DATA_COUNT = 50;
+
+			var updateInterval = 3000; //3 second interval updating chart
+			// initial value
+			var yValue1 = 0; 
+			var yValue2 = 0;
+			var yValue3 = 0;
+			var yValue4 = 0;
+			var yValue5 = 0;
+			var yValue6 = 0;
+			var yValue7 = 0;
+			var yValue8 = 0;
+
+			// Chart instance (to be initialized later)
+			let chart;
+
+			// Initialize the chart function
+			function initializeChart() {
+				chart = new CanvasJS.Chart("chartContainer", {
+					zoomEnabled: true,
+					title: {
+						text: "Sail Temperature Graph",
+						fontSize: 20
+					},
+					animationEnabled: true,
+					toolTip: {
+						shared: true
+					},
+
+					axisY: { // Add this section for Y-axis customization
+						viewportMinimum: 0, // Set the minimum value for the Y-axis
+						viewportMaximum: 160,  // Set the maximum value for the Y-axis
+						title: "Temperature",  // Set the Y-axis title if needed
+						titleFontSize: 16,  // Adjust the font size of the Y-axis title
+				        },
+					
+					legend: {
+						cursor:"pointer",
+						verticalAlign: "top",
+						fontSize: 10,
+						fontColor: "dimGrey",
+						itemclick : toggleDataSeries
+					},
+					data: [{ 
+						type: "line",
+						xValueType: "dateTime",
+						yValueFormatString: "###.##",
+						xValueFormatString: "hh:mm:ss TT",
+						showInLegend: true,
+						name: "Sensor 1",
+						dataPoints: dataPoints1
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 2" ,
+							dataPoints: dataPoints2
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 3" ,
+							dataPoints: dataPoints3
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 4" ,
+							dataPoints: dataPoints4
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 5" ,
+							dataPoints: dataPoints5
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 6" ,
+							dataPoints: dataPoints6
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 7" ,
+							dataPoints: dataPoints7
+						},
+						{				
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Sensor 8" ,
+							dataPoints: dataPoints8
+						
+						},
+						{
+							type: "line",
+							xValueType: "dateTime",
+							yValueFormatString: "###.##",
+							showInLegend: true,
+							name: "Target",
+							lineDashType: "dash", // Set lineDashType to "dash" for a dashed line
+							color: "red", // Set the color of the target line
+							dataPoints: dataPointsTarget
+						}]
+				});
+				chart.render();
+			}
+			
+			// Handle WebSocket connection open event
+            ws.onopen = function () {
+                console.log('Connected to WebSocket server');
+            };
+
+            // Handle WebSocket messages from the server
+            ws.onmessage = function (event) {
+                const response = JSON.parse(event.data);
+				//const time = new Date();
+				const time = new Date().getTime(); // Current timestamp
+                console.log("Received from server:", response);
+            
+                // Handle different actions based on the message
+    			if (response.action === 'updateSlider2') {
+    			    //updateSlider('slider2', response.value);  // Update slider2 with the received value
+					$('#result2 span').text(response.value); // Update the displayed value
+					$('#slider2').slider("value", response.value);
+					broadcastUpdate(response.value);  // Update the broadcast message
+					updateButtonState(response.value); // Update button state based on broadcasted value
+				} else if (response.action === 'updateSlider1') {
+    			    //updateSlider('slider1', response.value);  // Update slider1 with the received value
+					// Update the displayed value
+					$('#result1 span').text(response.value);
+        			// Update the slider position
+        			$('#slider1').slider("value", response.value);
+					broadcastUpdate(response.value);  // Update the broadcast message
+					updateButtonState(response.value); // Update button state based on broadcasted value
+				} else if (response.action === 'updateSlider3') {
+					//updateUIWithValue(response.value);
+					//updateSlider3('slider2', response.value2);
+					$('#result1 span').text(response.value1);
+					$('#result2 span').text(response.value2);
+					broadcastUpdate(response.value1);
+					broadcastUpdate(response.value2);
+				} else if (response.status === 'fetch') {
+                    // Handle successful responses, e.g., updating UI or logging success
+                    if (response.data) {
+            			// Assuming the response includes data for slider options
+            				const combinedValues = response.data.map(row => {
+                				return {
+                    				Low: { optionValue: row.Low, speedValue: row.SpeedLow },
+                    				Medium_Low: { optionValue: row.MediumLow, speedValue: row.SpeedMediumLow },
+                    				Medium: { optionValue: row.Medium, speedValue: row.SpeedMedium },
+                    				Medium_High: { optionValue: row.MediumHigh, speedValue: row.SpeedMediumHigh },
+                    				High: { optionValue: row.High, speedValue: row.SpeedHigh },
+                				};
+          					});
+
+							// Update UI elements using slider options
+							setSliderOptions(combinedValues, '.option-buttons', 'slider_value1', 'result1', 'slider_value2', 'result2');
+
+							// If there's additional data, fetch and set it
+							fetchTargetValue(response.data);
+
+							// Start recording and set machine type if required
+							startRecording();
+							machinetype();
+					}
+					console.log(response.message);
+                } 
+
+				// Sensor data updates
+				else if (response.action === "updateSensorData_sensor1") {
+        			updateSensorData(dataPoints1, "Sensor1", response.value, time);
+        			yValue1 = response.value; // Update the corresponding yValue
+				} else if (response.action === "updateSensorData_sensor2") {
+    			    updateSensorData(dataPoints2, "Sensor2", response.value, time);
+    			    yValue2 = response.value;
+    			} else if (response.action === "updateSensorData_sensor3") {
+    			    updateSensorData(dataPoints3, "Sensor3", response.value, time);
+    			    yValue3 = response.value;
+    			} else if (response.action === "updateSensorData_sensor4") {
+    			    updateSensorData(dataPoints4, "Sensor4", response.value, time);
+    			    yValue4 = response.value;
+    			} else if (response.action === "updateSensorData_sensor5") {
+    			    updateSensorData(dataPoints5, "Sensor5", response.value, time);
+    			    yValue5 = response.value;
+    			} else if (response.action === "updateSensorData_sensor6") {
+    			    updateSensorData(dataPoints6, "Sensor6", response.value, time);
+    			    yValue6 = response.value;
+    			} else if (response.action === "updateSensorData_sensor7") {
+    			    updateSensorData(dataPoints7, "Sensor7", response.value, time);
+    			    yValue7 = response.value;
+    			} else if (response.action === "updateSensorData_sensor8") {
+    			    updateSensorData(dataPoints8, "Sensor8", response.value, time);
+    			    yValue8 = response.value;
+    			}
+
+				else if (response.action === "updateOtherSensorData_sensorOther1") {
+					const sensorName = "sensor Other1";
+            		console.log(`Received sensorData :: ${sensorName} :: ${time} :: ${response.value}`);
+            		document.getElementById("energy-output").textContent = response.value;
+					//saveStateToLocalStorage();
+				} else if (response.action === "updateOtherSensorData_sensorOther3") {
+					const sensorName = "sensor Other3";
+					const sensorValue = response.value;
+            		console.log(`Received sensorData :: ${sensorName} :: ${time} :: ${response.value}`);
+            		document.getElementById("speed-output").textContent = sensorValue;
+					//saveStateToLocalStorage();
+				}
+
+				else if (response.action === "updateButtonOptions") {
+					const combinedValues = response.combinedValues;
+					// Use setSliderOptions to render buttons dynamically
+					setSliderOptions(
+						combinedValues,
+						".option-buttons", // Button container selector
+						"slider1",         // Slider 1 ID
+						"result1",         // Result 1 ID
+						"slider2",         // Slider 2 ID
+						"result2"          // Result 2 ID
+					);
+				}
+
+				else {
+                    // Handle errors or failed responses
+                    console.error('Error:', response.message);
+                }
+				
+				chart.render();
+            };
+
+            // Handle WebSocket error event
+            ws.onerror = function (error) {
+                console.error('WebSocket error:', error);
+            };
+
+            // Handle WebSocket close event
+            ws.onclose = function () {
+                console.log('WebSocket connection closed');
+            };
+
+			// Helper function to update sensor data
+			function updateSensorData(dataPoints, sensorId, value, time) {
+			    console.log(`Received sensorData :: ${sensorId} :: ${value}`);
+			    document.getElementById(sensorId).textContent = value;
+			    dataPoints.push({ x: time, y: value });
+			    if (dataPoints.length > MAX_DATA_COUNT) {
+			        dataPoints.shift(); // Trim excess data points
+			    }
+			}
+
+			function toggleDataSeries(e) {
+        		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        			e.dataSeries.visible = false;
+        		}
+        		else {
+        			e.dataSeries.visible = true;
+        		}
+        		chart.render();
+        	}
+
+			// Periodic chart update
+			function updateChart() {
+				if (!chart) {
+    			    console.warn("Chart is not initialized yet.");
+    			    return; // Exit if the chart is not initialized
+    			}
+
+				const currentTime = new Date().getTime();
+
+				dataPoints1.push({ x: currentTime, y: yValue1 });
+    			dataPoints2.push({ x: currentTime, y: yValue2 });
+    			dataPoints3.push({ x: currentTime, y: yValue3 });
+    			dataPoints4.push({ x: currentTime, y: yValue4 });
+    			dataPoints5.push({ x: currentTime, y: yValue5 });
+    			dataPoints6.push({ x: currentTime, y: yValue6 });
+    			dataPoints7.push({ x: currentTime, y: yValue7 });
+    			dataPoints8.push({ x: currentTime, y: yValue8 });
+
+			    trimDataPoints(dataPoints1);
+    			trimDataPoints(dataPoints2);
+    			trimDataPoints(dataPoints3);
+    			trimDataPoints(dataPoints4);
+    			trimDataPoints(dataPoints5);
+    			trimDataPoints(dataPoints6);
+    			trimDataPoints(dataPoints7);
+    			trimDataPoints(dataPoints8);
+				
+				chart.render();
+				//updateChart();
+
+			}
+			
+			// Utility to trim data points
+			function trimDataPoints(dataPoints) {
+			    if (dataPoints.length > MAX_DATA_COUNT) {
+			        dataPoints.shift(); // Remove the oldest data point
+			    }
+			}
+
+			// Start periodic updates after DOM is fully loaded
+			document.addEventListener("DOMContentLoaded", function () {
+				initializeChart(); // Initialize the chart when the page loads
+			    setInterval(updateChart, updateInterval);
+			});
+
+			// Set the target value when the user clicks the "Set" button
+			function setTargetValue() {
+    		    const inputValue = document.getElementById("targetValueInput").value;
+				//if (!isNaN(inputValue)) {
+				if (!isNaN(inputValue) && inputValue.trim() !== "") {
+    		        // Update the target value
+    		        targetValue = parseFloat(inputValue);
+				
+    		        // Update the target line immediately
+					const inTime = new Date().getTime();
+    		        dataPointsTarget.push ({
+    		            x: inTime,
+    		            y: targetValue
+    		        });
+
+					// Maintain a continuous line by periodically updating points
+					maintainContinuousTargetLine();
+
+					chart.render();
+    		    } else {
+    		        alert("Please enter a valid number for the target value.");
+    		    }
+    		}
+
+			// Periodically add new points to create a continuous target line
+			function maintainContinuousTargetLine() {
+				setInterval(() => {
+					const inTime = new Date().getTime(); // Current time
+					dataPointsTarget.push ({
+						x: inTime,
+						y: targetValue // Keep the same target value
+					});
+
+					// Render the cahrt to reflect updates
+					chart.render();
+				}, 1000); // Add new points at the same interval as the chart updates
+			}
+
+			function fetchData() {
+				var userInput = document.getElementById('userInput').value;
+				
+				// Check if user input is not empty
+				if (userInput === '') {
+					alert('Please enter a valid input.');
+					return;
+				}
+				
+				// Save userInput to the database
+				saveToDatabase(userInput);
+
+				// Save user input and send the request via WebSocket
+				sendMessage('fetch_data', { user_input: userInput });
+			}
+			
+			function startRecording() {
+			    // You can add any logic or actions needed to start recording
+			    console.log("Recording started");
+			    document.getElementById("startRecordingButton").disabled = true;
+			    document.getElementById("stopRecordingButton").disabled = false;
+				//sendMessage('start_recording', {});
+				const message = { action: "startRecording" };
+			    ws.send(JSON.stringify(message));
+		    }
+		
+		    function stopRecording() {
+			    // You can add any logic or actions needed to stop recording
+			    console.log("Recording stopped");
+			    document.getElementById("startRecordingButton").disabled = false;
+			    document.getElementById("stopRecordingButton").disabled = true;
+				//sendMessage('stop_recording', {});
+				const message = { action: "stopRecording" };
+			    ws.send(JSON.stringify(message));
+		    }
+		
+		    function machinetype() {
+			    // You can add any logic or actions needed to stop recording
+			    console.log("Blue Laminator Used");
+			    document.getElementById("machineButton").disabled = true;
+                const message = { action: 'machinetype_recording' };
+                ws.send(JSON.stringify(message));
+		    }
+		
+			function setSliderOptions(combinedValues, containerSelector, sliderId1, resultId1, sliderId2, resultId2) {
+				// Get the container element
+				const container = document.querySelector(containerSelector);
+					
+				// Clear the container content before adding new buttons
+				container.innerHTML = '';
+
+				// Iterate through each key (low, mediumlow, medium, mediumhigh, high)
+				Object.keys(combinedValues[0]).forEach(key => {
+					// Create a button element
+					const button = document.createElement('buttonpreset');
+
+					// Set the button's text content to the key (e.g., low, mediumlow, etc.)
+					const optionValue = combinedValues[0][key].optionValue;
+					const speedValue = combinedValues[0][key].speedValue;
+					//button.textContent = speedValue; //key;
+					button.textContent = `${optionValue} % - ${speedValue} cm/s`;
+
+					// Add a click event listener to the button
+					button.addEventListener('click', () => {
+						// Access the optionValue and speedValue based on the button's key
+						const { optionValue, speedValue } = combinedValues[0][key];
+
+						// Assuming you want to do something with the values, e.g., update a slider
+						updateSlider(optionValue, sliderId1, resultId1);
+						updateSlider2(speedValue, sliderId2, resultId2);
+					
+						// Send the selected values to the server via WebSocket
+						sendMessage('updateSlider', { slider1Value: optionValue, slider2Value: speedValue });
+					
+					});
+
+					// Append the button to the container
+					container.appendChild(button);
+				});
+						
+				// Create a "STOP" button
+				const stopButton = document.createElement('button');
+				stopButton.textContent = 'STOP';
+				stopButton.classList.add('speed-button', 'fixed-value');
+    			stopButton.dataset.value = '0';
+				stopButton.addEventListener('click', () => {  
+					sendMessage('updateSlider3', { value: 0 });
+					//updateUIWithValue(0);
+				});
+				container.appendChild(stopButton);
+			}
+
+			function updateSlider(value, sliderId, resultId) {
+				console.log(`Updating slider ${sliderId} ${resultId} with value: ${value}`);
+                const message = {
+                    action: 'updateSlider1',
+                    value: value
+                };
+                ws.send(JSON.stringify(message));			
+			}
+
+			function updateSlider2(value, sliderId, resultId) {
+				console.log(`Updating slider ${sliderId} ${resultId} with value: ${value}`);
+                const message = {
+                    action: 'updateSlider2',
+                    value: value
+                };
+                ws.send(JSON.stringify(message));
+			}
+
+			// Function to update broadcast messages
+			function broadcastUpdate(value) {
+			    const broadcastElement = document.getElementById('broadcastMessage');
+			    if (broadcastElement) {
+			        broadcastElement.textContent = "Broadcast Update: " + value;
+			    }
+			}
+
+			// Function to send message via WebSocket (e.g., fetching data, starting/stopping recording)
+			function sendMessage(action, data) {
+			    const message = { action, ...data };
+			    ws.send(JSON.stringify(message));  // Send the message to the server
+			}
+			
+			function fetchTargetValue(data) {
+				// Extract and display only TargetTemperature values
+				var targetValues = data.map(row => row.TargetTemperature);
+				
+				// Set the value for targetValueInput
+				var targetValueInput = document.getElementById('targetValueInput');
+				if (targetValues.length > 0) {
+					targetValueInput.value = targetValues[0];
+					sendTargetValueToServer(targetValues[0]);
+				} else {
+				    // Handle the case when there are no TargetTemperature values
+				    console.error('No TargetTemperature values found in the data.');
+				}
+			}
+				
+			function sendTargetValueToServer(targetValue) {
+                const message = {
+                    action: 'set_target_value',
+                    targetValue: targetValue
+                };
+                ws.send(JSON.stringify(message));
+			}
+				
+			function uploadData() {
+                const message = { action: 'upload_data' };
+                ws.send(JSON.stringify(message));
+			}
+			
+			// Function to show the notification
+			function showNotification(message) {
+				var notification = document.getElementById('notification');
+				var notificationMessage = document.getElementById('notificationMessage');
+    
+				notificationMessage.textContent = message;
+				notification.classList.add('visible');
+
+				// Hide the notification after 3 seconds
+				setTimeout(function() {
+					notification.classList.remove('visible');
+				}, 3000);
+			}
+
+			// Function to close the notification
+			document.getElementById('closeNotification').addEventListener('click', function() {
+				document.getElementById('notification').classList.remove('visible');
+			});
+
+			function saveToDatabase(userInput) {
+                const message = {
+                    action: 'processBarcode',
+                    barcode: userInput
+                };
+                ws.send(JSON.stringify(message));
+			}
+		</script>
+	</div>
+		
+		<!--<div id="result"></div>-->
+		<div id="sliderdummyContainer">
+		<div id="slider1" class="custom-slider"></div>
+		<input type="hidden" id="slider_value1" name="slider_value1">
+		<div id="result1" class="slider-result"></div>
+		<script>
+			function initializeSlider() {
+				var slider = $('#slider1');
+				var hiddenInput = $('#slider_value1');
+				var result = $('#result1 span');
+						
+				slider.slider({
+					min: 0,
+					max: 100,
+					value: 0.5,
+					slide: function(event, ui) {
+						hiddenInput.val(ui.value);
+						result.text(ui.value); // Update the displayed value
+					},
+					stop: function() {
+                        const message = {
+                            action: 'updateSlider1',
+                            value: hiddenInput.val()
+                        };
+                        ws.send(JSON.stringify(message)); // Send WebSocket message with the updated value
+                    	// Broadcast the selected value to all connected clients (if required)
+                		const broadcastMessage = {
+                		    action: 'broadcastUpdate',
+                		    value: hiddenInput.val()
+                		};
+                		ws.send(JSON.stringify(broadcastMessage)); // Broadcast the value to all clients
+					}
+				});
+			}
+					
+			$('#overrideButton').on('click', function () {
+				$('#sliderdummyContainer').toggle(); // Toggles the visibility
+				if ($('#sliderdummyContainer').is(':visible')) {
+					initializeSlider();
+				}
+			});
+		</script>
+			<div class="text-center mt-1">
+						Speed Options:
+							<button class="speed-button" data-value="0">0</button>
+							<button class="speed-button" data-value="1">1</button>
+							<button class="speed-button" data-value="1.5">1.5</button>
+							<button class="speed-button" data-value="2.38">2.38</button>
+							<button class="speed-button" data-value="2.5">2.5</button>
+							<button class="speed-button" data-value="2.63">2.63</button>
+							<button class="speed-button" data-value="2.78">2.78</button>
+							<button class="speed-button" data-value="2.94">2.94</button>
+							<button class="speed-button" data-value="3.5">3.5</button>
+							<button class="speed-button" data-value="4">4</button>
+							<button class="speed-button" data-value="5">5</button>
+					</div>
+					<div id="result2" class="slider-result"></div>
+				</div>
+				
+		<script>			
+			$('.speed-button').on('click', function () {
+				var selectedValue = $(this).data('value');
+				$('#result2 span').text(selectedValue);
+				//saveStateToLocalStorage();
+
+                // Send the selected value to the WebSocket server (no need for AJAX)
+                const message = {
+                    action: 'updateSlider2',
+                    value: selectedValue
+                };
+                ws.send(JSON.stringify(message)); // Send the value to the server via WebSocket
+                    
+                // Broadcast the selected value to all connected clients (if required)
+                const broadcastMessage = {
+                    action: 'broadcastUpdate',
+                    value: selectedValue
+                };
+                ws.send(JSON.stringify(broadcastMessage)); // Broadcast the value to all clients
+			});
+
+            // Function to update button state (highlighting the active button)
+            function updateButtonState(value) {
+                $('.speed-button').removeClass('active');
+                $('.speed-button[data-value="' + value + '"]').addClass('active');
+            } 
+		</script>
+		
+        <div class="row">
+		
+	<label class="slider-label">PRESET SETTINGS OUTPUT</label>
+	
+	<div class="option-buttons text-center"></div> <!-- Added text-center class here -->
+        
+	<div class="col-md-6">
+	    
+		<input type="hidden" id="slider_value1" name="slider_value1">
+		<div id="result1" class="slider-result">Power Percentage (%): <span>0</span></div>
+
+
+		<div class="sensor-box">
+		<div class="sensor-title">Energy Output (W/c㎡)</div>
+		<p id="energy-output">Sensor Data</p>
+		</div>
+	</div>
+	
+	<div class="col-md-6">
+
+		<input type="hidden" id="slider_value2" name="slider_value2">
+		<div id="result2" class="slider-result">Speed Value (cm/s): <span>0.0</span></div>
+
+		<div class="sensor-box">
+		<div class="sensor-title">Speed (cm/s)</div>
+		<p id="speed-output">Sensor Data</p>
+		</div>
+	</div>
+	
+</div>
+	
+        <!-- Wrap the button in a div with text-center class -->
+		<div class="text-center">
+    		<button class="toggle-button" onclick="toggleSensorSection()">Wireless Sensor Display</button>
+		</div>
+		
+		<div class="text-center mt-2">
+			<input type="number" id="targetValueInput" placeholder="Enter target value" style="padding: 8px; font-size: 16px;">
+			<button onclick="setTargetValue()" style="padding: 8px 16px; font-size: 16px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Set</button>
+		</div>
+	
+		<!-- Wrap the section with an ID -->
+		<div id="sensorSection">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="sensor-box">
+						<div class="sensor-title">Sail Temperature Graph</div>
+						<div class="hero">
+							<div id="chartContainer"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="sensors-container">
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A1 (A)</div>
+							<p id="Sensor1">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A1 (B)</div>
+							<p id="Sensor2">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A2 (A)</div>
+							<p id="Sensor3">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A2 (B)</div>
+							<p id="Sensor4">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A3 (A)</div>
+							<p id="Sensor5">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A3 (B)</div>
+							<p id="Sensor6">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A4 (A)</div>
+							<p id="Sensor7">Sensor Data</p>
+						</div>
+						<div class="sensor-card">
+							<div class="sensor-title">Sensor A4 (B)</div>
+							<p id="Sensor8">Sensor Data</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		    
+		<!-- Add JavaScript function to toggle visibility -->
+		<script>
+            function toggleSensorSection() {
+                var section = document.getElementById("sensorSection");
+
+                if (section.style.display === "none") {
+                    section.style.display = "block";
+					if (!chart) {
+                	    initializeChart(); // Initialize the chart only once
+                	}
+                    // Send a WebSocket message when the section is shown (optional)
+                    const message = {
+                        action: 'sensorSectionToggled',
+                        state: 'shown'
+                    };
+                    ws.send(JSON.stringify(message)); // Notify server that the section was shown
+                
+                } else {
+                    section.style.display = "none";
+
+                    // Send a WebSocket message when the section is hidden (optional)
+                    const message = {
+                        action: 'sensorSectionToggled',
+                        state: 'hidden'
+                    };
+                    ws.send(JSON.stringify(message)); // Notify server that the section was hidden
+                }
+            }
+
+			//document.getElementById("clearStateButton").addEventListener("click", function () {
+    		//	localStorage.removeItem("laminatorState");
+    		//	alert("Saved state cleared.");
+			//});
+		</script>
+	</div>    
+</body>
+</html>
